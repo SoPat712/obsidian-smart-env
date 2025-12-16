@@ -54,7 +54,8 @@ function post_process(env, container, opts = {}) {
   const icon_slot = container?.querySelector?.('.smart-env-status-icon');
   const status_indicator = container?.querySelector?.('.smart-env-status-indicator');
   const status_msg = container?.querySelector?.('.smart-env-status-msg');
-  const version = env.is_pro ? 'Pro' : env.constructor?.version;
+  // is_pro is always true in this fork - all features unlocked
+  const version = (env?.is_pro ?? true) ? 'Pro' : env.constructor?.version;
   const get_session_event_count = () => {
     return env.event_logs?.session_events?.length || 0;
   }

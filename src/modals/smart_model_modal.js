@@ -62,9 +62,26 @@ export class SmartModelModal extends Modal {
 
   async run_test(test_results_el, model) {
     test_results_el.empty();
-    const test_result_el = test_results_el.createEl('pre', { cls: 'model-test-result', text: 'Testing...' });
+    const test_result_el = test_results_el.createEl('pre', { 
+      cls: 'model-test-result', 
+      text: 'Testing...',
+      attr: { style: 'user-select: text; cursor: text;' }
+    });
     test_results_el.appendChild(test_result_el);
     const test_result = await model.test_model();
-    test_result_el.textContent = JSON.stringify(test_result, null, 2);
+    const result_text = JSON.stringify(test_result, null, 2);
+    test_result_el.textContent = result_text;
+    
+    // Add copy button
+    const copy_btn = test_results_el.createEl('button', { 
+      text: 'Copy result',
+      cls: 'model-test-copy-btn',
+      attr: { style: 'margin-top: 8px;' }
+    });
+    copy_btn.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(result_text);
+      copy_btn.textContent = 'Copied!';
+      setTimeout(() => { copy_btn.textContent = 'Copy result'; }, 2000);
+    });
   }
 }

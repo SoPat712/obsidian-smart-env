@@ -1,47 +1,44 @@
+// All platforms unlocked - no pro restrictions in this fork
 export const chat_completion_platform_options = [
   {
     label: 'Open Router (cloud)',
     value: 'open_router',
   },
   {
-    label: 'PRO: LM Studio (local, requires LM Studio app)',
+    label: 'LM Studio (local, requires LM Studio app)',
     value: 'lm_studio',
-    disabled: true,
   },
   {
-    label: 'PRO: Ollama (local, requires Ollama app)',
+    label: 'Ollama (local, requires Ollama app)',
     value: 'ollama',
-    disabled: true,
   },
   {
-    label: 'PRO: OpenAI (cloud)',
+    label: 'OpenAI (cloud)',
     value: 'openai',
-    disabled: true,
   },
   {
-    label: 'PRO: Google Gemini (cloud)',
+    label: 'Google Gemini (cloud)',
     value: 'google',
-    disabled: true,
   },
   {
-    label: 'PRO: Cohere (cloud)',
+    label: 'Cohere (cloud)',
     value: 'cohere',
-    disabled: true,
   },
   {
-    label: 'PRO: xAI Grok (cloud)',
+    label: 'Groq (cloud)',
+    value: 'groq',
+  },
+  {
+    label: 'xAI Grok (cloud)',
     value: 'xai',
-    disabled: true,
   },
   {
-    label: 'PRO: Anthropic Claude (cloud)',
+    label: 'Anthropic Claude (cloud)',
     value: 'anthropic',
-    disabled: true,
   },
   {
-    label: 'PRO: Deepseek (cloud)',
+    label: 'Deepseek (cloud)',
     value: 'deepseek',
-    disabled: true,
   }
 ];
 
@@ -51,28 +48,23 @@ export const embedding_platform_options = [
     value: 'transformers',
   },
   {
-    label: 'PRO: LM Studio (local, requires LM Studio app)',
+    label: 'LM Studio (local, requires LM Studio app)',
     value: 'lm_studio',
-    disabled: true,
   },
   {
-    label: 'PRO: Ollama (local, requires Ollama app)',
+    label: 'Ollama (local, requires Ollama app)',
     value: 'ollama',
-    disabled: true,
   },
   {
-    label: 'PRO: OpenAI (cloud)',
+    label: 'OpenAI (cloud)',
     value: 'openai',
-    disabled: true,
   },
   {
-    label: 'PRO: Google Gemini (cloud)',
+    label: 'Google Gemini (cloud)',
     value: 'google',
-    disabled: true,
   },
   {
-    label: 'PRO: Open Router (cloud)',
+    label: 'Open Router (cloud)',
     value: 'open_router',
-    disabled: true,
   },
 ];

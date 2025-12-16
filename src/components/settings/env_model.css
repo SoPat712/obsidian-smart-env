@@ -3,9 +3,22 @@
   padding: 1rem;
   margin-bottom: 1rem;
   background-color: var(--background-secondary);
+  overflow: hidden;
   pre {
     margin: 0;
     font-size: 0.9rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  .smart-env-settings-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .smart-env-settings-header b {
+    word-break: break-word;
+    flex: 1;
+    min-width: 0;
   }
   .test-result-icon {
     vertical-align: middle;

@@ -9,8 +9,8 @@ function build_html (model, params) {
   ];
   return `<div class="model-info">
     <div class="smart-env-settings-header">
-      <b>Current: ${model.display_name} <span class="test-result-icon" data-icon="${get_test_result_icon_name(model)}"></span></b>
-      <div>
+      <span class="model-info-title">Current: <span class="model-display-name">${model.display_name}</span> <span class="test-result-icon" data-icon="${get_test_result_icon_name(model)}"></span></span>
+      <div class="model-info-actions">
         <button class="edit-model">Edit</button>
         <button class="test-model">Test</button>
       </div>
