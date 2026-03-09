@@ -5,6 +5,7 @@ import {
   build_settings_group_map,
   resolve_group_settings_config,
 } from './settings_config_utils.js';
+import { create_settings_group_rerender } from './settings_group_rerender.js';
 // polyfill for Obsidian's SettingGroup not being available in older versions
 // jsdocs using imported SettingGroup for type hinting purposes
 /**
@@ -339,28 +340,4 @@ async function handle_config_callback(setting, event_or_value, cb, params = {}) 
   }
 }
 
-/**
- * Create a rerender callback for a settings group.
- * @param {object} scope - The scope containing settings.
- * @param {object} params - Parameters for rerendering.
- * @param {HTMLElement} params.container - The container to clear and re-render into.
- * @param {string} params.group_name - The name of the settings group.
- * @param {import('smart-types').SettingsConfig} params.settings_config - The configuration for the settings.
- * @param {object} [params.group_params] - Additional params for the settings group.
- * @param {function} params.render_group - Render function for the settings group.
- * @return {function} Rerender callback.
- */
-export function create_settings_group_rerender(scope, params = {}) {
-  const {
-    container,
-    group_name,
-    settings_config,
-    group_params = {},
-    render_group,
-  } = params;
-  return () => {
-    if (!container || typeof render_group !== 'function') return null;
-    container.replaceChildren();
-    return render_group(group_name, scope, settings_config, container, group_params);
-  };
-}
+export { create_settings_group_rerender } from './settings_group_rerender.js';

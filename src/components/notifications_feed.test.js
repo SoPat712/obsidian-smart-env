@@ -7,7 +7,7 @@ import {
   get_visible_count,
   get_visible_entries,
   should_show_load_more,
-} from './notifications_feed.js';
+} from './notifications_feed_utils.js';
 
 test('get_entry_level prioritizes notification namespace', (t) => {
   t.is(get_entry_level({ event_key: 'notification:warning' }), 'warning');

@@ -1,4 +1,4 @@
-import {Platform} from 'obsidian';
+import * as obsidian from 'obsidian';
 /**
  * @file contexts.js
  *
@@ -19,7 +19,7 @@ import {Platform} from 'obsidian';
 
 export const display_name = 'Add named contexts';
 
-const MOD_CHAR = Platform.isMacOS ? '⌘' : 'Ctrl';
+const MOD_CHAR = obsidian.Platform?.isMacOS ? '⌘' : 'Ctrl';
 
 /**
  * @param {object} modal

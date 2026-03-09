@@ -5,7 +5,7 @@ import {
   get_notification_setting_key,
   get_notification_type,
   should_show_native_notice,
-} from './event_logs.js';
+} from './event_logs_utils.js';
 
 test('get_notification_type parses notification keys', (t) => {
   t.is(get_notification_type('notification:warning'), 'warning');
