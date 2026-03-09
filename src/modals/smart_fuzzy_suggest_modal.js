@@ -5,13 +5,10 @@ import {
   Platform
 } from 'obsidian';
 
-/**
- * @typedef {object} SuggestionItem
- * @property {string} key           key to add to a SmartContext instance
- * @property {string} display       text shown in the modal
- * @property {function} [select_action]     optional action on select
- * @property {function} [mod_select_action] optional action on mod+select
- */
+import {
+  build_suggest_scope_items,
+  should_handle_arrow_left
+ } from '../utils/smart_fuzzy_suggest_utils.js';
 
 /**
  * Base smart fuzzy suggest modal with registration helpers.
@@ -28,6 +25,7 @@ export class SmartFuzzySuggestModal extends FuzzySuggestModal {
     this.plugin = plugin;
     this.item_or_collection = item_or_collection;
     this.emptyStateText = 'No suggestions available';
+    this._set_custom_instructions = false;
   }
 
 
@@ -100,26 +98,44 @@ export class SmartFuzzySuggestModal extends FuzzySuggestModal {
     return item;
   }
 
+  setInstructions(instructions, is_custom = true) {
+    this._set_custom_instructions = is_custom;
+    super.setInstructions(instructions);
+  }
+
+  set_default_instructions() {
+    this.setInstructions([
+      { command: 'Enter', purpose: 'Select' }
+    ], false);
+  }
+
   open(params = {}) {
     super.open();
     this.modalEl.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') this.selectActiveSuggestion(e);
-      // is_cursor_end_of_input
+      if (e.key === 'Enter') {
+        if (e.shiftKey) this.use_shift_select = true;
+        this.selectActiveSuggestion(e);
+      }
       const is_cursor_end_of_input = this.inputEl.selectionStart === this.inputEl.value.length;
-      console.log({is_cursor_end_of_input, inputEl: this.inputEl});
-      if (e.target !== this.inputEl || !this.inputEl.value || is_cursor_end_of_input || Keymap.isModEvent(e)) {
-        if (e.key === 'ArrowLeft') {
-          this.use_arrow_left = true;
-          this.selectActiveSuggestion(e);
-          return;
-        }
-        if (e.key === 'ArrowRight' && (is_cursor_end_of_input || e.target !== this.inputEl || !this.inputEl.value)) {
-          e.preventDefault();
-          this.use_mod_select = true;
-          this.use_arrow_right = true;
-          this.selectActiveSuggestion(e);
-          return;
-        }
+      const should_handle_arrow_right = is_cursor_end_of_input
+        || e.target !== this.inputEl
+        || !this.inputEl.value;
+      const should_handle_arrow_left_action = should_handle_arrow_left(this, {
+        event_target: e.target,
+        input_value: this.inputEl.value,
+      });
+      // console.log({is_cursor_end_of_input, inputEl: this.inputEl});
+      if (e.key === 'ArrowLeft' && should_handle_arrow_left_action) {
+        this.use_arrow_left = true;
+        this.selectActiveSuggestion(e);
+        return;
+      }
+      if (e.key === 'ArrowRight' && should_handle_arrow_right) {
+        e.preventDefault();
+        this.use_mod_select = true;
+        this.use_arrow_right = true;
+        this.selectActiveSuggestion(e);
+        return;
       }
     });
   }
@@ -153,21 +169,9 @@ export class SmartFuzzySuggestModal extends FuzzySuggestModal {
     return [];
   }
   get_suggest_scopes() {
-    return this.default_suggest_action_keys
-      .map(action_key => {
-        const action_config = this.env.config.actions[action_key];
-        if (!action_config) return null;
-        const display_name = action_config.display_name || action_key;
-        return {
-          select_action: () => {
-            this.update_suggestions(action_key);
-          },
-          key: action_key,
-          display: display_name,
-        };
-      })
-      .filter(Boolean)
-    ;
+    return build_suggest_scope_items(this, {
+      action_keys: this.default_suggest_action_keys,
+    });
   }
 
   async update_suggestions(suggest_ref) {
@@ -175,6 +179,7 @@ export class SmartFuzzySuggestModal extends FuzzySuggestModal {
       suggest_ref = this.item_or_collection.actions[suggest_ref];
     }
     if (typeof suggest_ref === 'function') {
+      this._set_custom_instructions = false;
       const result = await suggest_ref({modal: this});
       console.log('Suggestion action result', result);
       if(Array.isArray(result) && result.length) {
@@ -189,6 +194,9 @@ export class SmartFuzzySuggestModal extends FuzzySuggestModal {
       this.env.events.emit('notification:error', {message: 'Invalid suggestion action'});
       console.warn('Invalid suggestion action', suggest_ref);
     }
+    if(!this._set_custom_instructions) {
+      this.set_default_instructions();
+    }
   }
   get default_suggest_action_keys() {
     if (Array.isArray(this.params?.default_suggest_action_keys)) {
@@ -198,18 +206,37 @@ export class SmartFuzzySuggestModal extends FuzzySuggestModal {
   }
   renderSuggestion(sug, el) {
     super.renderSuggestion(sug, el);
-    if (sug.item.icon) {
+
+    const icon = sug?.icon || sug?.item?.icon;
+    if (icon) {
       el.addClass('sc-modal-suggestion-has-icon');
       const icon_el = el.createEl('span');
-      setIcon(icon_el, sug.item.icon);
+      setIcon(icon_el, icon);
     }
+
+    const display_right_raw = (sug && Object.prototype.hasOwnProperty.call(sug, 'display_right'))
+      ? sug.display_right
+      : sug?.item?.display_right;
+
+    const display_right = (display_right_raw === null || display_right_raw === undefined)
+      ? ''
+      : String(display_right_raw).trim();
+
+    if (display_right) {
+      this.env.smart_components.render_component('suggest_display_right', display_right).then((right_el) => {
+        el.appendChild(right_el);
+      });
+    }
+
     return el;
   }
+
   onChooseSuggestion(selected, evt, ...other) {
     this.prevent_close = true;
     const suggestion = selected.item;
     const is_arrow_left = this.use_arrow_left;
     const is_arrow_right = this.use_arrow_right;
+    const is_shift_select = evt?.shiftKey || this.use_shift_select;
     const is_mod_select = Keymap.isModifier(evt, 'Mod')
       || this.use_mod_select
     ;
@@ -217,6 +244,7 @@ export class SmartFuzzySuggestModal extends FuzzySuggestModal {
     this.use_arrow_right = false;
     this.use_mod_select = false;
     this.use_arrow_left = false;
+    this.use_shift_select = false;
     if (is_arrow_left) {
       if (typeof suggestion.arrow_left_action === 'function') {
         this.handle_choose_action(suggestion, 'arrow_left_action');
@@ -239,6 +267,8 @@ export class SmartFuzzySuggestModal extends FuzzySuggestModal {
       this.handle_choose_action(suggestion, 'arrow_right_action');
     } else if (is_mod_select && typeof suggestion.mod_select_action === 'function') {
       this.handle_choose_action(suggestion, 'mod_select_action');
+    } else if (is_shift_select && typeof suggestion.shift_select_action === 'function') {
+      this.handle_choose_action(suggestion, 'shift_select_action');
     } else if(typeof suggestion.select_action === 'function') {
       this.handle_choose_action(suggestion, 'select_action');
     } else {

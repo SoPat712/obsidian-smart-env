@@ -1,4 +1,7 @@
 import { render_settings_config } from '../../utils/render_settings_config.js';
+import { create_reset_confirm_ui } from './reset_confirm.js';
+import { ExcludedFoldersFuzzy } from '../../modals/exclude_folders_fuzzy.js';
+import { ExcludedSourcesModal } from '../../modals/excluded_sources.js';
 export async function build_html(env, opts = {}) {
   return `
     <div class="sources-settings">
@@ -16,14 +19,15 @@ export async function post_process(env, container, opts = {}) {
   const settings_config = {
     folder_exclusions,
     view_exclusions,
+    // reset_env_settings_btn, // TODO: manually tested before implementing reset button
     re_import_sources,
-  }
+  };
   render_settings_config(settings_config, env, container, {
     default_group_name: 'Sources',
     heading_btn: {
       btn_icon: 'help-circle',
       callback: (event, setting) => {
-        window.open('https://smartconnections.app/environment-settings/?utm_source=source-settings', '_external');
+        window.open('https://smartconnections.app/smart-environment/settings/?utm_source=source-settings', '_external');
       },
     },
   });
@@ -53,7 +57,6 @@ export function highlight_reset_data(env, container) {
   };
 }
 
-import { ExcludedFoldersFuzzy } from '../../modals/exclude_folders_fuzzy.js';
 export const folder_exclusions = {
   type: 'button',
   name: 'Manage excluded folders',
@@ -69,7 +72,6 @@ export const folder_exclusions = {
   }
 };
 
-import { ExcludedSourcesModal } from '../../modals/excluded_sources.js';
 export const view_exclusions = {
   type: 'button',
   name: 'View all exclusions',
@@ -120,6 +122,18 @@ export const re_import_sources = {
     confirm_cancel.addEventListener('click', (e) => {
       confirm_row.style.display = 'none';
       reimport_btn.style.display = 'inline-block';
-    });
+    }, { once: true });
+  }
+};
+
+export const reset_env_settings_btn = {
+  type: 'button',
+  name: 'Reset Smart Env settings',
+  description: 'Restore Smart Environment settings to defaults.',
+  btn_text: 'Reset settings',
+  callback: async function (value, setting) {
+    const env = this; // scope passed as 'this'
+    const container = setting.controlEl;
+    create_reset_confirm_ui(env, { container });
   }
 };

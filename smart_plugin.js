@@ -4,8 +4,11 @@ import {
   requestUrl,
   Platform,
 } from "obsidian";
+import { SmartEnv } from "./smart_env.js";
+import { SmartNotices } from 'smart-notices/smart_notices.js';
 
 export class SmartPlugin extends Plugin {
+  SmartEnv = SmartEnv;
   /**
    * override in subclass to provide commands.
    * use property key to override commands in further subclasses.
@@ -94,5 +97,25 @@ export class SmartPlugin extends Plugin {
    */
   async is_new_plugin_version(current_version) {
     return (await this.get_last_known_version()) !== current_version;
+  }
+  async check_for_updates() {
+    if (this.ReleaseNotesView && await this.is_new_plugin_version(this.manifest.version)) {
+      console.log("opening release notes modal");
+      try {
+        this.ReleaseNotesView.open(this.app.workspace, this.manifest.version);
+      } catch (e) {
+        console.error('Failed to open ReleaseNotesView', e);
+      }
+      await this.set_last_known_version(this.manifest.version);
+    }
+  }
+
+  /**
+   * @deprecated use SmartEnv.notices instead
+   */
+  get notices() {
+    if(this.env?.notices) return this.env.notices;
+    if(!this._notices) this._notices = new SmartNotices(this.env, Notice);
+    return this._notices;
   }
 }

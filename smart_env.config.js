@@ -10,6 +10,7 @@ import { render as context_item_leaf_component } from './src/components/context-
 import { render as env_stats_component } from './src/components/env_stats.js';
 import { render as form_dropdown_component } from './src/components/form/dropdown.js';
 import { render as lean_coffee_callout_component } from './src/components/lean_coffee_callout.js';
+import { render as milestones_component } from './src/components/milestones.js';
 import { render as notifications_feed_component } from './src/components/notifications_feed.js';
 import { render as pro_plugins_list_component } from './src/components/pro-plugins/list.js';
 import { render as pro_plugins_list_item_component } from './src/components/pro-plugins/list_item.js';
@@ -26,12 +27,14 @@ import { render as smart_context_meta_component } from './src/components/smart-c
 import { render as smart_context_tree_component } from './src/components/smart-context/tree.js';
 import { render as source_inspector_component } from './src/components/source_inspector.js';
 import { render as status_bar_component } from './src/components/status_bar.js';
+import { render as suggest_display_right_component } from './src/components/suggest_display_right.js';
 import { render as supporter_callout_component } from './src/components/supporter_callout.js';
 import { render as user_agreement_callout_component } from './src/components/user_agreement_callout.js';
 import { copy_to_clipboard as context_copy_to_clipboard_action } from './src/actions/context/copy_to_clipboard.js';
 import { merge_template as context_item_merge_template_action, settings_config as context_item_merge_template_action_settings_config, default_settings as context_item_merge_template_action_default_settings } from './src/actions/context-item/merge_template.js';
 import { merge_template as context_merge_template_action, settings_config as context_merge_template_action_settings_config, default_settings as context_merge_template_action_default_settings } from './src/actions/context/merge_template.js';
 import { context_suggest_blocks as context_suggest_blocks_action, display_name as context_suggest_blocks_action_display_name } from './src/actions/context-suggest/blocks.js';
+import { context_suggest_contexts as context_suggest_contexts_action, display_name as context_suggest_contexts_action_display_name } from './src/actions/context-suggest/contexts.js';
 import { context_suggest_sources as context_suggest_sources_action, display_name as context_suggest_sources_action_display_name } from './src/actions/context-suggest/sources.js';
 import { pre_process as lookup_list_pre_process_action, pre_process as lookup_list_pre_process_action_pre_process } from './src/actions/lookup-list/pre_process.js';
 import { similarity as similarity_action, settings_config as similarity_action_settings_config, display_name as similarity_action_display_name, display_description as similarity_action_display_description } from './src/actions/similarity.js';
@@ -60,6 +63,7 @@ export const smart_env_config = {
     env_stats: { render: env_stats_component },
     form_dropdown: { render: form_dropdown_component },
     lean_coffee_callout: { render: lean_coffee_callout_component },
+    milestones: { render: milestones_component },
     notifications_feed: { render: notifications_feed_component },
     pro_plugins_list: { render: pro_plugins_list_component },
     pro_plugins_list_item: { render: pro_plugins_list_item_component },
@@ -76,6 +80,7 @@ export const smart_env_config = {
     smart_context_tree: { render: smart_context_tree_component },
     source_inspector: { render: source_inspector_component },
     status_bar: { render: status_bar_component },
+    suggest_display_right: { render: suggest_display_right_component },
     supporter_callout: { render: supporter_callout_component },
     user_agreement_callout: { render: user_agreement_callout_component }
   },
@@ -84,6 +89,7 @@ export const smart_env_config = {
     context_item_merge_template: { action: context_item_merge_template_action, settings_config: context_item_merge_template_action_settings_config, default_settings: context_item_merge_template_action_default_settings },
     context_merge_template: { action: context_merge_template_action, settings_config: context_merge_template_action_settings_config, default_settings: context_merge_template_action_default_settings },
     context_suggest_blocks: { action: context_suggest_blocks_action, display_name: context_suggest_blocks_action_display_name },
+    context_suggest_contexts: { action: context_suggest_contexts_action, display_name: context_suggest_contexts_action_display_name },
     context_suggest_sources: { action: context_suggest_sources_action, display_name: context_suggest_sources_action_display_name },
     lookup_list_pre_process: { action: lookup_list_pre_process_action, pre_process: lookup_list_pre_process_action_pre_process },
     similarity: { action: similarity_action, settings_config: similarity_action_settings_config, display_name: similarity_action_display_name, display_description: similarity_action_display_description },

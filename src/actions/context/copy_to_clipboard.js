@@ -1,5 +1,5 @@
 import { Notice } from 'obsidian';
-import { copy_to_clipboard as base_copy } from 'obsidian-smart-env/utils/copy_to_clipboard.js';
+import { copy_to_clipboard as base_copy } from '../../../utils/copy_to_clipboard.js';
 
 export async function copy_to_clipboard(params = {}) {
   const context_items = this.context_items.filter(params.filter);
@@ -15,6 +15,7 @@ export async function copy_to_clipboard(params = {}) {
     max_depth: params.max_depth,
     exclusions: params.exclusions,
   });
+  this.emit_event('context:copied');
   new Notice(message);
 }
 

@@ -1,18 +1,19 @@
-import { Menu } from "obsidian";
-import { provider_options } from "./provider_options.js";
-import { SmartModelModal } from "../../modals/smart_model_modal.js";
+import { Menu } from 'obsidian';
+import { provider_options } from './provider_options.js';
+import { SmartModelModal } from '../../modals/smart_model_modal.js';
 
 export function show_new_model_menu(models_collection, event, params = {}) {
-  // All providers enabled - no pro restrictions in this fork
   const providers = (provider_options[models_collection.collection_key] || [])
-    .map(p => ({ ...p, disabled: false }));
+    .map((provider) => ({
+      ...provider,
+      disabled: !models_collection.env_config.providers[provider.value],
+    }));
   if (providers.length === 0) {
-    if (event.target.tagName.toLowerCase() === "button") {
+    if (event.target.tagName.toLowerCase() === 'button') {
       event.target.disabled = true;
-      event.title = "No providers available to create new models.";
+      event.title = 'No providers available to create new models.';
     }
   } else {
-    // render context Menu
     const menu = new Menu();
     providers.forEach((provider) => {
       menu.addItem((item) => {
@@ -21,16 +22,13 @@ export function show_new_model_menu(models_collection, event, params = {}) {
           item.setDisabled(true);
         }
         item.onClick(async () => {
-          if (typeof params.on_before_new === "function") {
+          if (typeof params.on_before_new === 'function') {
             await params.on_before_new();
           }
-          // new model set as default and emits model-changed
           const model = models_collection.new_model({
             provider_key: provider.value,
           });
-          const on_new_close = async () => {
-            // model.emit_event('model:changed');
-          };
+          const on_new_close = async () => {};
           new SmartModelModal(model, { on_close: on_new_close }).open();
         });
       });

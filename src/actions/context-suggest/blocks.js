@@ -1,5 +1,9 @@
 
 export function context_suggest_blocks(params={}) {
+  params?.modal?.setInstructions([
+    { command: 'Enter', purpose: 'Add block to context' },
+    { command: '←', purpose: 'Back to sources' },
+  ]);
   let blocks = [];
   if(params.source_key) {
     const src = this.env.smart_sources.get(params.source_key);
@@ -20,10 +24,16 @@ export function context_suggest_blocks(params={}) {
       select_action: () => {
         this.add_item(block.key);
       },
+      arrow_left_action: ({modal}) => {
+        modal.update_suggestions('context_suggest_sources');
+      }
     }))
   ;
 }
 
+/**
+ * @deprecated 2025-12-27 Use SmartBlocks.get_block_display_name instead.
+ */
 function get_block_display_name(item, settings = {}) {
   if (!item?.key) return '';
   const show_full_path = settings.show_full_path ?? true;

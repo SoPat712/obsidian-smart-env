@@ -3,7 +3,12 @@ import {
   get_oauth_storage_prefix,
   get_smart_server_url,
   fetch_server_plugin_list,
+  fetch_referral_stats,
 } from '../../utils/smart_plugins.js';
+import {
+  build_onboarding_start_url,
+  get_onboarding_signup_setting_copy,
+} from './onboarding_signup.js';
 import styles from './style.css';
 
 const PRO_PLUGINS_DESC = `<a href="https://smartconnections.app/core-plugins/" target="_external">Core plugins</a> provide essential functionality and a "just works" experience. <a href="https://smartconnections.app/pro-plugins/" target="_external">Pro plugins</a> enable advanced configuration and features for Obsidian AI experts.`;
@@ -48,6 +53,7 @@ export function build_html(env, params = {}) {
         <div class="setting-items pro-plugins-list">
         </div>
         <p>${PRO_PLUGINS_FOOTER}</p>
+        <div class="smart-plugins-referral"></div>
       </div>
     </div>
   `;
@@ -69,6 +75,7 @@ export async function post_process(env, container, params = {}) {
   const oauth_storage_prefix = get_oauth_storage_prefix(app);
 
   const login_container = container.querySelector('.smart-plugins-login');
+  const referral_container = container.querySelector('.smart-plugins-referral');
   const pro_list_el = container.querySelector('.pro-plugins-list');
 
   const placeholders = derive_fallback_plugins();
@@ -77,6 +84,37 @@ export async function post_process(env, container, params = {}) {
   let last_login_url = '';
   let manual_login_el = null;
 
+  const empty_container = (el) => {
+    if (!el) return;
+    if (typeof this.empty === 'function') {
+      this.empty(el);
+      return;
+    }
+    el.innerHTML = '';
+  };
+
+  const emit_referral_event = (event_key) => {
+    if (!env?.events || typeof env.events.emit !== 'function') return;
+    env.events.emit(event_key, { event_source: 'pro_plugins_referrals' });
+  };
+
+  const render_onboarding_signup_section = () => {
+    if (!referral_container) return;
+
+    const copy = get_onboarding_signup_setting_copy();
+    const setting = new Setting(referral_container)
+      .setName(copy.name)
+      .setDesc(copy.description);
+
+    setting.addButton((btn) => {
+      btn.setButtonText(copy.button_text);
+      btn.onClick(() => {
+        const onboarding_url = build_onboarding_start_url({ source: 'plugins_settings' });
+        window.open(onboarding_url, '_external');
+        emit_referral_event('onboarding:opened_signup');
+      });
+    });
+  };
 
   const render_manual_login_link = (login_url) => {
     if (!login_container) return;
@@ -180,9 +218,68 @@ export async function post_process(env, container, params = {}) {
         localStorage.removeItem(oauth_storage_prefix + 'refresh');
         new Notice('Logged out of Smart Plugins');
         render_oauth_login_section();
+        render_referral_section();
         render_plugin_list_section();
       });
     });
+  };
+
+  /**
+   * @param {object} params
+   * @param {string} params.token
+   * @param {number|null} params.sub_exp
+   */
+  const render_referral_section = async (params = {}) => {
+    empty_container(referral_container);
+    render_onboarding_signup_section();
+
+    const token = String(params.token || '').trim();
+    if (!token) {
+      const setting = new Setting(referral_container)
+        .setName('Give $30 off Pro. Get 30 days of Pro')
+        .setDesc('Start a free trial to unlock your referral link.');
+
+      setting.addButton((btn) => {
+        btn.setButtonText('Start free trial');
+        btn.onClick(() => {
+          window.open('https://smartconnections.app/pro-plugins/', '_external');
+        });
+      });
+
+      return;
+    }
+
+    const sub_exp = Number(params.sub_exp ?? 0) || 0;
+    if (sub_exp && sub_exp < Date.now()) return;
+
+    try {
+      const stats = await fetch_referral_stats({ token });
+      const referral_link = String(stats?.referral_link || '').trim();
+      if (!referral_link) return;
+
+      const setting = new Setting(referral_container)
+        .setName('Referral link')
+        .setDesc('Give $30 off Pro. Get 30 days of Pro.');
+
+      setting.addButton((btn) => {
+        btn.setButtonText('Copy link');
+        btn.onClick(async () => {
+          const ok = await copy_to_clipboard(referral_link);
+          new Notice(ok ? 'Referral link copied.' : 'Copy failed. Please try again.');
+          if (ok) emit_referral_event('referrals:copied_link');
+        });
+      });
+
+      setting.addButton((btn) => {
+        btn.setButtonText('Open referrals');
+        btn.onClick(() => {
+          window.open('https://smartconnections.app/my-referrals/', '_external');
+          emit_referral_event('referrals:opened_dashboard');
+        });
+      });
+    } catch (err) {
+      console.error('[pro-plugins:list] Failed to load referral stats:', err);
+    }
   };
 
   const render_fallback_plugin_list = async () => {
@@ -230,6 +327,7 @@ export async function post_process(env, container, params = {}) {
     const token = localStorage.getItem(oauth_storage_prefix + 'token') || '';
     if (!token) {
       await render_fallback_plugin_list();
+      await render_referral_section();
       return;
     }
 
@@ -241,8 +339,11 @@ export async function post_process(env, container, params = {}) {
       if (typeof sub_exp === 'number' && sub_exp < Date.now()) {
         add_update_sub_to_login_section();
         await render_fallback_plugin_list();
+        await render_referral_section();
         return;
       }
+
+      await render_referral_section({ token, sub_exp });
 
       if (!Array.isArray(list) || list.length === 0) {
         await render_fallback_plugin_list();

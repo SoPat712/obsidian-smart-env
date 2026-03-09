@@ -1,22 +1,21 @@
-import { Notice, Platform, TFile } from "obsidian";
-import { SmartEnv as BaseSmartEnv } from "smart-environment";
-import { merge_env_config } from "smart-environment/utils/merge_env_config.js";
-import default_config from "./default.config.js";
+import { Notice, Platform, TFile } from 'obsidian';
+import { SmartEnv as BaseSmartEnv } from 'smart-environment';
+import { merge_env_config } from 'smart-environment/utils/merge_env_config.js';
+import default_config from './default.config.js';
 import {
+  add_smart_icons,
   add_smart_chat_icon,
   add_smart_connections_icon,
   add_smart_lookup_icon,
-} from "./utils/add_icons.js";
-import { SmartNotices } from "smart-notices/smart_notices.js"; // TODO: move to jsbrains
+} from './utils/add_icons.js';
+import { SmartNotices } from 'smart-notices/smart_notices.js';
 import {
   exchange_code_for_tokens,
-  install_smart_plugins_plugin,
   get_smart_server_url,
-  enable_plugin,
-} from "./utils/sc_oauth.js";
-import { open_url_externally } from "./utils/open_url_externally.js";
-import { register_completion_variable_adapter_replacements } from "./utils/register_completion_variable_adapter_replacements.js";
-import { remove_smart_plugins_plugin } from "./migrations/remove_smart_plugins_plugin.js";
+} from './utils/sc_oauth.js';
+import { register_completion_variable_adapter_replacements } from './utils/register_completion_variable_adapter_replacements.js';
+import { remove_smart_plugins_plugin } from './migrations/remove_smart_plugins_plugin.js';
+import { register_first_of_event_notifications } from './src/utils/onboarding_events.js';
 
 export class SmartEnv extends BaseSmartEnv {
   /**
@@ -42,27 +41,26 @@ export class SmartEnv extends BaseSmartEnv {
     add_smart_chat_icon();
     add_smart_connections_icon();
     add_smart_lookup_icon();
+    add_smart_icons();
+    // TODO: can this be safely removed? Does downstream version detection handle this case?
     if (window.smart_env && !window.smart_env.constructor.version) {
       const update_notice =
-        "Detected ancient SmartEnv. Removing it to prevent issues with new plugins. Make sure your Smart Plugins are up-to-date!";
+        'Detected ancient SmartEnv. Removing it to prevent issues with new plugins. Make sure your Smart Plugins are up-to-date!';
       console.warn(update_notice);
       new Notice(update_notice, 0);
       window.smart_env = null;
     }
 
     const opts = merge_env_config(env_config, default_config);
-    opts.env_path = ""; // scope handled by Obsidian FS methods
+    opts.env_path = '';
     return await super.create(plugin, opts);
   }
   async load(force_load = false) {
     this.run_migrations();
-    if (
-      !Platform.isMobile &&
-      !this.plugin.app.workspace.protocolHandlers.has("smart-plugins/callback")
-    ) {
+    if (!this.plugin.app.workspace.protocolHandlers.has('smart-plugins/callback')) {
       // Register protocol handler for obsidian://smart-plugins/callback
       this.plugin.registerObsidianProtocolHandler(
-        "smart-plugins/callback",
+        'smart-plugins/callback',
         async (params) => {
           await this.handle_smart_plugins_oauth_callback(params);
         },
@@ -111,6 +109,7 @@ export class SmartEnv extends BaseSmartEnv {
     ContextModal.register_modal(this.main);
     // register status bar
     this.register_status_bar();
+    register_first_of_event_notifications(this);
   }
   emit_source_opened(current_path, event_source = null) {
     if (this._current_opened_source === current_path) return; // prevent duplicate events
@@ -242,28 +241,24 @@ export class SmartEnv extends BaseSmartEnv {
     const modal = new NotificationsModalClass(this.obsidian_app, this);
     modal.open();
   }
+  // open milestones modal
+  open_milestones_modal() {
+    const MilestonesModalClass = this.config.modals.milestones_modal.class;
+    const modal = new MilestonesModalClass(this.obsidian_app, this);
+    modal.open();
+  }
   run_migrations() {
     // remove old smart-plugins plugin if present
-    remove_smart_plugins_plugin({
-      app: this.plugin.app,
-      plugin_ids: ["smart-plugins"],
-    });
-    remove_smart_plugins_plugin({
-      app: this.plugin.app,
-      plugin_ids: ["smart-editor"],
-    });
-    remove_smart_plugins_plugin({
-      app: this.plugin.app,
-      plugin_ids: ["smart-sources"],
-    });
+    remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ['smart-plugins'] });
+    remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ['smart-editor'] });
+    remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ['smart-sources'] });
+    remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ['smart-claude'] });
+    remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ['smart-gemini'] });
+    remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ['smart-deepseek'] });
+    remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ['smart-perplexity'] });
+    remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ['smart-grok'] });
+    remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ['smart-aistudio'] });
   }
-}
-
-async function disable_plugin(app, plugin_id) {
-  console.log("disabling plugin " + plugin_id);
-  await app.plugins.unloadPlugin(plugin_id);
-  await app.plugins.disablePluginAndSave(plugin_id);
-  await app.plugins.loadManifests();
 }
 /**
  * Triggers a browser download for the provided JSON string.

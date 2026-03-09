@@ -1,4 +1,3 @@
-// All platforms unlocked - no pro restrictions in this fork
 export const provider_options = {
   chat_completion_models: [
     {
@@ -40,7 +39,15 @@ export const provider_options = {
     {
       label: 'Deepseek (cloud)',
       value: 'deepseek',
-    }
+    },
+    {
+      label: 'Azure OpenAI (cloud)',
+      value: 'azure',
+    },
+    {
+      label: 'Experimental: Lite LLM (self-hosted proxy)',
+      value: 'litellm',
+    },
   ],
   embedding_models: [
     {
@@ -61,7 +68,7 @@ export const provider_options = {
     },
     {
       label: 'Google Gemini (cloud)',
-      value: 'google',
+      value: 'gemini',
     },
     {
       label: 'Open Router (cloud)',
