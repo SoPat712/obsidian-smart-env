@@ -11,8 +11,8 @@ import {
 } from './onboarding_signup.js';
 import styles from './style.css';
 
-const PRO_PLUGINS_DESC = `<a href="https://smartconnections.app/core-plugins/" target="_external">Core plugins</a> provide essential functionality and a "just works" experience. <a href="https://smartconnections.app/pro-plugins/" target="_external">Pro plugins</a> enable advanced configuration and features for Obsidian AI experts.`;
-const PRO_PLUGINS_FOOTER = `All Pro plugins include advanced configurations and additional model providers. Pro users get priority support via email. <a href="https://smartconnections.app/introducing-pro-plugins/" target="_external">Learn more</a> about Pro plugins.`;
+const PRO_PLUGINS_DESC = `<a href="https://github.com/SoPat712/obsidian-intelligent-linking" target="_external">Core plugins</a> provide essential functionality and a "just works" experience. <a href="https://github.com/SoPat712/obsidian-intelligent-linking" target="_external">Pro plugins</a> enable advanced configuration and features for Obsidian AI experts.`;
+const PRO_PLUGINS_FOOTER = `All Pro plugins include advanced configurations and additional model providers. Pro users get priority support via email. <a href="https://github.com/SoPat712/obsidian-intelligent-linking" target="_external">Learn more</a> about Pro plugins.`;
 
 function derive_fallback_plugins() {
   const pro_placeholders = [
@@ -20,19 +20,19 @@ function derive_fallback_plugins() {
       name: 'Chat Pro',
       description: 'Configure chat to use Local and Cloud API providers (Ollama, LM Studio, OpenAI, Gemini, Anthropic, Open Router, and more).',
       core_id: 'smart-chatgpt',
-      url: 'https://smartconnections.app/smart-chat/'
+      url: 'https://github.com/SoPat712/obsidian-intelligent-linking'
     },
     {
       name: 'Connections Pro',
       description: 'More opportunities for connections. Graph view for visualizing. Inline and footer views (great for mobile!). Configurable algorithms and additional embedding model providers.',
       core_id: 'smart-connections',
-      url: 'https://smartconnections.app/smart-connections/'
+      url: 'https://github.com/SoPat712/obsidian-intelligent-linking'
     },
     {
       name: 'Context Pro',
       description: 'Advanced tools for context engineering. Utilize Bases, images, and external sources (great for coders!) in your contexts.',
       core_id: 'smart-context',
-      url: 'https://smartconnections.app/smart-context/'
+      url: 'https://github.com/SoPat712/obsidian-intelligent-linking'
     },
   ];
 
@@ -242,7 +242,7 @@ export async function post_process(env, container, params = {}) {
       setting.addButton((btn) => {
         btn.setButtonText('Start free trial');
         btn.onClick(() => {
-          window.open('https://smartconnections.app/pro-plugins/', '_external');
+          window.open('https://github.com/SoPat712/obsidian-intelligent-linking', '_external');
         });
       });
 
@@ -273,7 +273,7 @@ export async function post_process(env, container, params = {}) {
       setting.addButton((btn) => {
         btn.setButtonText('Open referrals');
         btn.onClick(() => {
-          window.open('https://smartconnections.app/my-referrals/', '_external');
+          window.open('https://github.com/SoPat712/obsidian-intelligent-linking', '_external');
           emit_referral_event('referrals:opened_dashboard');
         });
       });
@@ -305,13 +305,13 @@ export async function post_process(env, container, params = {}) {
     setting.addButton((btn) => {
       btn.setButtonText('Get Pro');
       btn.onClick(() => {
-        window.open('https://smartconnections.app/subscribe/', '_external');
+        window.open('https://github.com/SoPat712/obsidian-intelligent-linking', '_external');
       });
     });
     setting.addButton((btn) => {
       btn.setButtonText('Update subscription');
       btn.onClick(() => {
-        window.open('https://smartconnections.app/subscription-update/', '_external');
+        window.open('https://github.com/SoPat712/obsidian-intelligent-linking', '_external');
       });
     });
     setting.addButton((btn) => {

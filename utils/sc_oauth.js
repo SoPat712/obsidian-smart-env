@@ -12,14 +12,13 @@
 
 import { requestUrl } from 'obsidian';
 
-// Use the same utilities from smart-plugins-obsidian:
 import {
   get_smart_server_url,
   fetch_plugin_zip,
   parse_zip_into_files,
   write_files_with_adapter,
   enable_plugin,
-} from 'smart-plugins-obsidian/utils.js';
+} from '../src/utils/smart_plugins.js';
 export { get_smart_server_url, enable_plugin };
 
 const CLIENT_ID = 'smart-plugins-op';

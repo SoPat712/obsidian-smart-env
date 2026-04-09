@@ -67,6 +67,10 @@ export const provider_options = {
       value: 'openai',
     },
     {
+      label: 'Custom (OpenAI)',
+      value: 'custom_openai',
+    },
+    {
       label: 'Google Gemini (cloud)',
       value: 'gemini',
     },

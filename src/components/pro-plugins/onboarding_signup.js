@@ -1,4 +1,4 @@
-const DEFAULT_ONBOARDING_START_URL = 'https://smartconnections.app/onboarding/start/';
+const DEFAULT_ONBOARDING_START_URL = 'https://github.com/SoPat712/obsidian-intelligent-linking';
 
 /**
  * @param {object} [params]

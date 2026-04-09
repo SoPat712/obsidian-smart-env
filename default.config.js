@@ -15,6 +15,7 @@ import { MarkdownBlockContentAdapter } from "smart-blocks/adapters/markdown_bloc
 // smart model
 import { SmartEmbedModel } from "smart-embed-model";
 import { SmartEmbedOpenAIAdapter } from "smart-embed-model/adapters/openai.js";
+import { SmartEmbedCustomOpenAIAdapter } from "smart-embed-model/adapters/custom_openai.js";
 import { SmartEmbedTransformersIframeAdapter } from "smart-embed-model/adapters/transformers_iframe.js";
 import { SmartEmbedOllamaAdapter } from "smart-embed-model/adapters/ollama.js";
 import { GeminiEmbedModelAdapter } from "smart-embed-model/adapters/gemini.js";
@@ -75,6 +76,7 @@ const smart_env_config = {
       adapters: {
         transformers: SmartEmbedTransformersIframeAdapter,
         openai: SmartEmbedOpenAIAdapter,
+        custom_openai: SmartEmbedCustomOpenAIAdapter,
         ollama: SmartEmbedOllamaAdapter,
         gemini: GeminiEmbedModelAdapter,
         lm_studio: LmStudioEmbedModelAdapter,

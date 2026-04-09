@@ -88,7 +88,7 @@ export function register_status_bar_context_menu(env, status_container, deps = {
         .setTitle('Learn about Community Supporters')
         .setIcon('hand-heart')
         .onClick(() => {
-          const url = 'https://smartconnections.app/community-supporters/?utm_source=status-bar';
+          const url = 'https://github.com/SoPat712/obsidian-intelligent-linking';
           window.open(url, '_external');
         }),
     );

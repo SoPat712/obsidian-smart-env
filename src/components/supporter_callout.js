@@ -1,4 +1,6 @@
 import { getIcon } from "obsidian";
+
+const SUPPORT_URL = "https://github.com/SoPat712/obsidian-intelligent-linking";
 export function build_html(plugin, opts={}) {
   const {plugin_name = plugin.manifest.name} = opts;
   return `<div class="wrapper">
@@ -50,7 +52,7 @@ export function build_html(plugin, opts={}) {
         <p>Guaranteed seat in the Community Lean Coffee meetings.</p>
         <p><i>Your support shapes the future of ${plugin_name}.</i></p>
         <p>
-          <strong>Fuel the circle of empowerment.</strong> <a href="https://smartconnections.app/community-supporters?utm_source=obsidian-${plugin_name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase()}" class="button" target="_external">Become a Supporter</a>
+          <strong>Fuel the circle of empowerment.</strong> <a href="${SUPPORT_URL}" class="button" target="_external">Become a Supporter</a>
         </p>
       </div>
     </div>

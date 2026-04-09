@@ -9,7 +9,7 @@ import {
   fetch_zip_from_url,
 } from '../../utils/smart_plugins.js';
 
-const PRO_PLUGINS_URL = 'https://smartconnections.app/pro-plugins/';
+const PRO_PLUGINS_URL = 'https://github.com/SoPat712/obsidian-intelligent-linking';
 
 export function build_html(item, params = {}) {
   return `<div class="pro-plugins-list-item"></div>`;

@@ -11,7 +11,7 @@ export async function render(scope, params={}) {
           <circle cx="50" cy="100" r="9" fill="currentColor"></circle>
           <circle cx="30" cy="50" r="9" fill="currentColor"></circle>
         </svg>
-        <p><a style="font-weight: 700;" href="https://smartconnections.app/">Smart Env</a></p>
+        <p><a style="font-weight: 700;" href="https://github.com/SoPat712/obsidian-intelligent-linking">Smart Env</a></p>
       </div>
     `)
   ;

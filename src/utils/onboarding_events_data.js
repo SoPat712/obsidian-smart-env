@@ -38,71 +38,71 @@ export const EVENTS_CHECKLIST_ITEMS_BY_EVENT_KEY = {
   'sources:import_completed': {
     group: 'Environment',
     milestone: 'Initial vault import completed (all sources discovered).',
-    link: 'https://smartconnections.app/smart-environment/settings/?utm_source=milestones#sources',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'embedding:completed': {
     group: 'Environment',
     milestone: 'Initial embedding completed, you are ready to make connections!',
-    link: 'https://smartconnections.app/smart-environment/settings/?utm_source=milestones#embedding-models',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
 
   // Connections
   'connections:installed': {
     group: 'Connections',
     milestone: 'Installed Smart Connections (core plugin).',
-    link: 'https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'connections:opened': {
     group: 'Connections',
     milestone: 'Opened the connections view.',
-    link: 'https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones#quick-start',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'connections:drag_result': {
     group: 'Connections',
     milestone: 'Dragged a Smart Connections result into a note to create a link.',
-    link: 'https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones#drag-link',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'connections:open_result': {
     group: 'Connections',
     milestone: 'Opened a Smart Connections result from the UI (list item or inline popover).',
-    link: 'https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones#core-interactions',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'connections:sent_to_context': {
     group: 'Connections',
     milestone: 'Sent Connections results to Smart Context (turn discovery into a context pack).',
-    link: 'https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones#send-to-context',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'connections:copied_list': {
     group: 'Connections',
     milestone: 'Copied Connections results as a list of links.',
-    link: 'https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones#copy-list',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'connections:hover_preview': {
     group: 'Connections',
     milestone: 'Previewed a connection by holding cmd/ctrl while hovering the result.',
-    link: 'https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones#core-interactions',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'connections:open_random': {
     group: 'Connections',
     milestone: 'Opened a random connection from Smart Connections.',
-    link: 'https://smartconnections.app/smart-connections/getting-started/?utm_source=milestones#open-a-random-connection',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   "connections:hidden_item": {
     group: 'Connections',
     milestone: 'Hidden a connection item from the list.',
-    link: 'https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones#manage-noise',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   "connections:pinned_item": {
     group: 'Connections',
     milestone: 'Pinned a connection item in the list.',
-    link: 'https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones#manage-noise',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
 
   // Connections Pro
   'connections_pro:installed': {
     group: 'Connections Pro',
     milestone: 'Installed Smart Connections Pro.',
-    link: 'https://smartconnections.app/pro-plugins/?utm_source=milestones#connections-pro',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
     is_pro: true,
   },
 
@@ -110,76 +110,76 @@ export const EVENTS_CHECKLIST_ITEMS_BY_EVENT_KEY = {
   'lookup:hover_preview': {
     group: 'Lookup',
     milestone: 'Previewed a Smart Lookup result by holding cmd/ctrl while hovering.',
-    link: 'https://smartconnections.app/smart-connections/lookup/?utm_source=milestones#understanding-results',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'lookup:get_results': {
     group: 'Lookup',
     milestone: 'Submitted a lookup query (started a semantic search).',
-    link: 'https://smartconnections.app/smart-connections/lookup/?utm_source=milestones',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'lookup:drag_result': {
     group: 'Lookup',
     milestone: 'Dragged a Smart Lookup result into a note to create a link.',
-    link: 'https://smartconnections.app/smart-connections/lookup/?utm_source=milestones#understanding-results',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'lookup:open_result': {
     group: 'Lookup',
     milestone: 'Opened a Lookup result.',
-    link: 'https://smartconnections.app/smart-connections/lookup/?utm_source=milestones#understanding-results',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
 
   // Context
   'context:created': {
     group: 'Context',
     milestone: 'First context created!',
-    link: 'https://smartconnections.app/smart-context/builder/?utm_source=milestones#quick-start',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'context:copied': {
     group: 'Context',
     milestone: 'Copied context to clipboard.',
-    link: 'https://smartconnections.app/smart-context/clipboard/?utm_source=milestones#copy-current',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'context:file_nav_copied': {
     group: 'Context',
     milestone: 'Copied context from the file navigator.',
-    link: 'https://smartconnections.app/smart-context/clipboard/?utm_source=milestones#copy-selected',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'context_selector:open': {
     group: 'Context',
     milestone: 'Opened the Context Builder selector modal.',
-    link: 'https://smartconnections.app/smart-context/builder/?utm_source=milestones#open-builder',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'context:named': {
     group: 'Context',
     milestone: 'Named a Smart Context (created a reusable saved context).',
-    link: 'https://smartconnections.app/smart-context/builder/?utm_source=milestones#save-reuse',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'context:renamed': {
     group: 'Context',
     milestone: 'Renamed a Smart Context (increased clarity).',
-    link: 'https://smartconnections.app/smart-context/builder/?utm_source=milestones#save-reuse',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'context:installed': {
     group: 'Context',
     milestone: 'Installed Smart Context (core plugin).',
-    link: 'https://smartconnections.app/smart-context/builder/?utm_source=milestones',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'context:copied_with_media': {
     group: 'Context Pro',
     milestone: 'Copied context with media (images/PDF pages) for multimodal workflows.',
-    link: 'https://smartconnections.app/smart-context/clipboard/?utm_source=milestones#copy-modes',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
     is_pro: true,
   },
   'context:custom_template_set': {
     group: 'Context Pro',
     milestone: 'Set a custom context template.',
-    link: 'https://smartconnections.app/smart-context/settings/?utm_source=milestones#context-templates',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
     is_pro: true,
   },
   'context_item:custom_template_set': {
     group: 'Context Pro',
     milestone: 'Set a custom context item template.',
-    link: 'https://smartconnections.app/smart-context/settings/?utm_source=milestones#item-templates',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
     is_pro: true,
   },
 
@@ -187,7 +187,7 @@ export const EVENTS_CHECKLIST_ITEMS_BY_EVENT_KEY = {
   'context_pro:installed': {
     group: 'Context Pro',
     milestone: 'Installed Smart Context Pro.',
-    link: 'https://smartconnections.app/pro-plugins/?utm_source=milestones#context-pro',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
     is_pro: true,
   },
 
@@ -195,35 +195,35 @@ export const EVENTS_CHECKLIST_ITEMS_BY_EVENT_KEY = {
   'chat:installed': {
     group: 'Chat',
     milestone: 'Installed Smart ChatGPT.',
-    link: 'https://smartconnections.app/smart-chat/?utm_source=milestones',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'chat_codeblock:saved_thread': {
     group: 'Chat',
     milestone: 'Started a chat in a Smart Chat codeblock (opened the loop).',
-    link: 'https://smartconnections.app/smart-chat/codeblock/?utm_source=milestones#quick-start',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'chat_codeblock:marked_active': {
     group: 'Chat',
     milestone: 'Marked a chat thread as active from the Smart Chat inbox.',
-    link: 'https://smartconnections.app/smart-chat/codeblock/?utm_source=milestones#chat-inbox',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'chat_codeblock:marked_done': {
     group: 'Chat',
     milestone: 'Marked the chat thread as done (closed the loop).',
-    link: 'https://smartconnections.app/smart-chat/codeblock/?utm_source=milestones#chat-inbox',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
 
   // Chat Pro
   'chat_pro:installed': {
     group: 'Chat Pro',
     milestone: 'Installed Smart Chat Pro.',
-    link: 'https://smartconnections.app/pro-plugins/?utm_source=milestones#chat-pro',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
     is_pro: true,
   },
   'completion:completed': {
     group: 'Chat Pro',
     milestone: 'Received the first Smart Chat response (a completion finished).',
-    link: 'https://smartconnections.app/smart-chat/api-integration/?utm_source=milestones#quick-start',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
     is_pro: true,
   },
 
@@ -231,19 +231,19 @@ export const EVENTS_CHECKLIST_ITEMS_BY_EVENT_KEY = {
   'inline_connections:show': {
     group: 'Connections Pro',
     milestone: 'Opened inline connections in-note (used the inline workflow).',
-    link: 'https://smartconnections.app/smart-connections/inline/?utm_source=milestones',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
     is_pro: true,
   },
   'inline_connections:open_result': {
     group: 'Connections Pro',
     milestone: 'Opened an inline connections result (navigated from discovery to source).',
-    link: 'https://smartconnections.app/smart-connections/inline/?utm_source=milestones',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
     is_pro: true,
   },
   'inline_connections:drag_result': {
     group: 'Connections Pro',
     milestone: 'Inserted an inline link from an inline connection (converted discovery into a durable link).',
-    link: 'https://smartconnections.app/smart-connections/inline/?utm_source=milestones',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
     is_pro: true,
   },
 
@@ -252,13 +252,13 @@ export const EVENTS_CHECKLIST_ITEMS_BY_EVENT_KEY = {
   'connect_pro:ping': {
     group: 'Connect Pro',
     milestone: 'Connect Pro ping observed (local route hit or tunnel health check ran).',
-    link: 'https://smartconnections.app/connect-pro/?utm_source=milestones#health-check',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
     is_pro: true,
   },
   'connect_pro:request': {
     group: 'Connect Pro',
     milestone: 'Connect Pro request received (remote action hit /obsidian-cli).',
-    link: 'https://smartconnections.app/connect-pro/?utm_source=milestones#request-flow',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
     is_pro: true,
   },
 
@@ -266,18 +266,18 @@ export const EVENTS_CHECKLIST_ITEMS_BY_EVENT_KEY = {
   'smart_plugins_oauth_completed': {
     group: 'Pro',
     milestone: 'Connected account (enabled Pro plugins).',
-    link: 'https://smartconnections.app/pro-plugins/?utm_source=milestones',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
   },
   'referrals:copied_link': {
     group: 'Pro',
     milestone: 'Copied your referral link to share Pro.',
-    link: 'https://smartconnections.app/pro-plugins/?utm_source=milestones#referrals',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
     is_pro: true,
   },
   'referrals:opened_dashboard': {
     group: 'Pro',
     milestone: 'Opened the referrals dashboard to view bonuses.',
-    link: 'https://smartconnections.app/my-referrals/?utm_source=milestones',
+    link: 'https://github.com/SoPat712/obsidian-intelligent-linking',
     is_pro: true,
   },
 };

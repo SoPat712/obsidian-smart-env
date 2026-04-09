@@ -8,16 +8,16 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "brianpetro/jsbrains"
+    "url": "SoPat712/obsidian-intelligent-linking"
   },
   "bugs": {
-    "url": "https://github.com/brianpetro/jsbrains/issues"
+    "url": "https://github.com/SoPat712/obsidian-intelligent-linking"
   },
   "scripts": {
     "build": "node build/build.js",
     "test": "node node_modules/ava/entrypoints/cli.mjs --verbose"
   },
-  "homepage": "https://jsbrains.org",
+  "homepage": "https://github.com/SoPat712/obsidian-intelligent-linking",
   "dependencies": {
     "obsidian": "^1.11.0",
     "smart-blocks": "file:../jsbrains/smart-blocks",

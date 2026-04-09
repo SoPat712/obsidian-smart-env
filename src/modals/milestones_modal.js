@@ -1,6 +1,6 @@
 import { Modal, setIcon } from 'obsidian';
 
-const MILESTONES_HELP_URL = 'https://smartconnections.app/smart-environment/milestones/?utm_source=milestones_modal_help';
+const MILESTONES_HELP_URL = 'https://github.com/SoPat712/obsidian-intelligent-linking';
 
 export class MilestonesModal extends Modal {
   constructor(app, env) {
