@@ -7,7 +7,7 @@
  * Handles:
  *   1) Exchanging code for tokens
  *   2) Installing "smart-plugins" from the server via plugin_download
- *   3) Importing and using parse_zip_into_files from ../smart-plugins-obsidian/utils.js
+ *   3) Importing and using parse_zip_into_files from ../src/utils/smart_plugins.js
  */
 
 import { requestUrl } from 'obsidian';
